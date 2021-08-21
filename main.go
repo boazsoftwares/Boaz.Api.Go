@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/boazsoftwares/Boaz.Api.Go/server"
+)
 
 func main() {
-	fmt.Println("Go é massa, Belnaldo")
+	fmt.Println("Start server BoazApiGo")
+	server := server.NewServer()
+
+	server.Run()
 }
