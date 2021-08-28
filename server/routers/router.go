@@ -11,6 +11,8 @@ func ContigureRoutes(router *gin.Engine) *gin.Engine {
 		empresas := main.Group("empresas")
 		{
 			empresas.GET("/:id", controllers.GetEmpresa)
+			empresas.GET("/", controllers.GetEmpresas)
+			empresas.POST("/", controllers.AddEmpresa)
 		}
 	}
 

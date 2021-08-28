@@ -9,7 +9,7 @@ import (
 
 func main() {
 	fmt.Println("Start Database")
-	database.Connection()
+	database.ConnectionConfig()
 
 	fmt.Println("Start Server BoazApiGo")
 	server := server.NewServer()
