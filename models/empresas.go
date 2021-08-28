@@ -21,12 +21,51 @@ func (Empresa) TableName() string {
 	return "Empresa"
 }
 
-// type Empresa struct {
-// 	ID          uint           `json:"Id" gorm:"column:Id;not null;primaryKey;autoIncrement"`
-// 	Cnpj        string         `json:"Cnpj" gorm:"column:Cnpj;size:14;uniqueIndex;index;not null"`
-// 	RazaoSocial string         `json:"RazaoSocial" gorm:"column:RazaoSocial;size:100;uniqueIndex;not null"`
-// 	NomeFatasia string         `json:"NomeFantasia" gorm:"column:NomeFantasia;size:100;not null"`
-// 	CreatedAt   time.Time      `json:"CreatedAt" gorm:"column:CreatedAt;not null"`
-// 	UpdatedAt   time.Time      `json:"UpdatedAt" gorm:"column:UpdatedAt;"`
-// 	DeletedAt   gorm.DeletedAt `gorm:"index;column:DeletedAt;"`
-// }
+/* EXEMPLO DA ESTRTURA COMPLETA
+
+package main
+
+import (
+	"fmt"
+	"time"
+
+	faker "github.com/bxcodec/faker/v3"
+)
+
+type Set struct {
+	Id         uint64    `faker:"-"`
+	GameId     uint64    `gorm:"not null;index:idx_sets_code_game_id,unique"`
+	Name       string    `gorm:"size:255;not null" faker:"last_name,keep"`
+	Code       string    `gorm:"size:255;not null;index:idx_sets_code_game_id,unique" faker:"unique,len=3,keep"`
+	ReleasedAt time.Time `gorm:"type:DATETIME NOT NULL"`
+	CreatedAt  time.Time `gorm:"type:DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP" faker:"-"`
+	UpdatedAt  time.Time `gorm:"type:DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP" faker:"-"`
+	Game       *Game     `gorm:"foreignkey:GameId;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" faker:"keep"`
+}
+
+type Game struct {
+	Id         uint64    `faker:"-"`
+	Name       string    `gorm:"size:255;not null;index:,unique" faker:"first_name,unique,keep"`
+	BundleSize uint8     `gorm:"not null;default:1" faker:"bundle_size"`
+	CreatedAt  time.Time `gorm:"type:DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP" faker:"-"`
+	UpdatedAt  time.Time `gorm:"type:DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP" faker:"-"`
+}
+
+func main() {
+	game := Game{Name: "Magic The Gathering"}
+	set := Set{Name: "Core Set 2021"}
+	faker.FakeData(&game)
+	faker.FakeData(&set)
+
+	fmt.Println(game.Name == "Magic The Gathering")     // Expect true
+	fmt.Println(set.Name == "Core Set 2021")            // Expect true
+	// fmt.Println(set.Game.Name == "Magic The Gathering") // Expect true, but get nil pointer dereference
+
+	set2 := Set{Name: "Core Set 2021", Game: &Game{}}
+	faker.FakeData(&set)
+
+	fmt.Println(set2.Name == "Core Set 2021") // Expect true
+	fmt.Println(set2.Game.Name != "")         // Expect true, but get false
+}
+
+*/
