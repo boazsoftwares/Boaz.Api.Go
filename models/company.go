@@ -6,19 +6,19 @@ import (
 	"gorm.io/gorm"
 )
 
-type Empresa struct {
-	ID          uint           `json:"Id" gorm:"column:Id;not null;primaryKey;autoIncrement"`
-	Cnpj        string         `json:"Cnpj" gorm:"column:Cnpj;size:14;index;not null;unique"`
-	RazaoSocial string         `json:"RazaoSocial" gorm:"column:RazaoSocial;size:100;z;not null;unique"`
-	NomeFatasia string         `json:"NomeFantasia" gorm:"column:NomeFantasia;size:100;not null;unique"`
-	CreatedAt   time.Time      `json:"CreatedAt" gorm:"column:CreatedAt;not null;type:DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP"`
-	UpdatedAt   time.Time      `json:"UpdatedAt" gorm:"column:UpdatedAt;type:DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
-	DeletedAt   gorm.DeletedAt `gorm:"column:DeletedAt"`
+type Company struct {
+	ID              uint           `json:"Id" gorm:"column:Id;not null;primaryKey;autoIncrement"`
+	CorporateId     string         `json:"CorporateId" gorm:"column:CorporateId;size:14;index;not null;unique"`
+	CorporateName   string         `json:"CorporateName" gorm:"column:CorporateName;size:100;z;not null;unique"`
+	CorporateNameId string         `json:"CorporateNameId" gorm:"column:CorporateNameId;size:100;not null;unique"`
+	CreatedAt       time.Time      `json:"CreatedAt" gorm:"column:CreatedAt;not null;type:DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP"`
+	UpdatedAt       time.Time      `json:"UpdatedAt" gorm:"column:UpdatedAt;type:DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
+	DeletedAt       gorm.DeletedAt `gorm:"column:DeletedAt"`
 }
 
 // Set User's table name to be `profiles`
-func (Empresa) TableName() string {
-	return "Empresa"
+func (Company) TableName() string {
+	return "Company"
 }
 
 /* EXEMPLO DA ESTRTURA COMPLETA

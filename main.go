@@ -3,13 +3,15 @@ package main
 import (
 	"fmt"
 
-	"github.com/boazsoftwares/Boaz.Api.Go/database"
+	dbMySql "github.com/boazsoftwares/Boaz.Api.Go/database"
+	iDatabase "github.com/boazsoftwares/Boaz.Api.Go/database/interface"
 	"github.com/boazsoftwares/Boaz.Api.Go/server"
 )
 
 func main() {
-	fmt.Println("Start Database")
-	database.ConnectionConfig()
+	iDatabase.IDatebaseExecutTest()
+	fmt.Println("Start Application GoLang")
+	dbMySql.OpenConnection()
 
 	fmt.Println("Start Server BoazApiGo")
 	server := server.NewServer()

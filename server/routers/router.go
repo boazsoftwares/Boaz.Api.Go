@@ -8,11 +8,11 @@ import (
 func ContigureRoutes(router *gin.Engine) *gin.Engine {
 	main := router.Group("api/v1")
 	{
-		empresas := main.Group("empresas")
+		empresas := main.Group("company")
 		{
-			empresas.GET("/:id", controllers.GetEmpresa)
-			empresas.GET("/", controllers.GetEmpresas)
-			empresas.POST("/", controllers.AddEmpresa)
+			empresas.GET("/:id", controllers.GetCompany)
+			empresas.GET("/", controllers.GetCompanies)
+			empresas.POST("/", controllers.AddCompany)
 		}
 	}
 
