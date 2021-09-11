@@ -4,7 +4,7 @@ import (
 	"strconv"
 
 	entities "github.com/boazsoftwares/Boaz.Api.Go/domain/entities"
-	dbMySql "github.com/boazsoftwares/Boaz.Api.Go/infra/database"
+	dbMysqlDrive "github.com/boazsoftwares/Boaz.Api.Go/infra/database/Mysql"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,7 +19,7 @@ func GetCompany(c *gin.Context) {
 		return
 	}
 
-	db := dbMySql.GetDatabase()
+	db := dbMysqlDrive.GetDatabase()
 
 	var empresa entities.Company
 	err = db.First(empresa, newid).Error
@@ -34,7 +34,7 @@ func GetCompany(c *gin.Context) {
 }
 
 func AddCompany(c *gin.Context) {
-	db := dbMySql.GetDatabase()
+	db := dbMysqlDrive.GetDatabase()
 
 	var empresa entities.Company
 
@@ -50,7 +50,7 @@ func AddCompany(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(400, gin.H{
-			"Erro": "Erro register company" + err.Error(),
+			"Erro": "Erro register company: " + err.Error(),
 		})
 		return
 	}
@@ -59,13 +59,13 @@ func AddCompany(c *gin.Context) {
 }
 
 func GetCompanies(c *gin.Context) {
-	db := dbMySql.GetDatabase()
+	db := dbMysqlDrive.GetDatabase()
 	var empresas []entities.Company
 	err := db.Find(empresas).Error
 
 	if err != nil {
 		c.JSON(400, gin.H{
-			"Erro": "Error find company" + err.Error(),
+			"Erro": "Error find company: " + err.Error(),
 		})
 
 		return

@@ -4,16 +4,14 @@ import (
 	"fmt"
 
 	"github.com/boazsoftwares/Boaz.Api.Go/api/server"
-	dbMySql "github.com/boazsoftwares/Boaz.Api.Go/infra/database"
-	iDatabase "github.com/boazsoftwares/Boaz.Api.Go/infra/database/interface"
+	dbMysqlDrive "github.com/boazsoftwares/Boaz.Api.Go/infra/database/Mysql"
 )
 
 func main() {
 	fmt.Println("Start application GoLang")
 
 	fmt.Println("Start database architecture")
-	iDatabase.IDatebaseExecutTest()
-	dbMySql.OpenConnection()
+	dbMysqlDrive.MysqlTest()
 
 	fmt.Println("Start new server Company")
 	server := server.NewServerCompany()
