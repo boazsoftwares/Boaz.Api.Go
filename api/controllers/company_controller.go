@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"strconv"
 
 	entities "github.com/boazsoftwares/Boaz.Api.Go/domain/entities"
@@ -18,6 +19,9 @@ func GetCompany(c *gin.Context) {
 		})
 		return
 	}
+
+	var companyResult = dbMysqlDrive.Crud.Find(newid, err)
+	fmt.Println(companyResult)
 
 	db := dbMysqlDrive.GetDatabase()
 

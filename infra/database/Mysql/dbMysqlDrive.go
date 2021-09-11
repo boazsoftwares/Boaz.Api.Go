@@ -61,7 +61,7 @@ func (drive DBMySqlConfig) ClosedConnection() {
 
 func MysqlTest() DBMySqlConfig {
 	driverStart.OpenConnection()
-	driverStart.Migration()
-	driverStart.ClosedConnection()
+	//driverStart.Migration()
+	//driverStart.ClosedConnection()
 	return driverStart
 }
