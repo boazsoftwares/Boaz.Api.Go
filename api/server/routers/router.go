@@ -1,11 +1,11 @@
 package routers
 
 import (
-	"github.com/boazsoftwares/Boaz.Api.Go/controllers"
+	"github.com/boazsoftwares/Boaz.Api.Go/api/controllers"
 	"github.com/gin-gonic/gin"
 )
 
-func ContigureRoutes(router *gin.Engine) *gin.Engine {
+func ContigureRoutesCompany(router *gin.Engine) *gin.Engine {
 	main := router.Group("api/v1")
 	{
 		empresas := main.Group("company")

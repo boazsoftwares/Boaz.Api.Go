@@ -3,8 +3,8 @@ package controllers
 import (
 	"strconv"
 
-	dbMySql "github.com/boazsoftwares/Boaz.Api.Go/database"
-	"github.com/boazsoftwares/Boaz.Api.Go/models"
+	entities "github.com/boazsoftwares/Boaz.Api.Go/domain/entities"
+	dbMySql "github.com/boazsoftwares/Boaz.Api.Go/infra/database"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,7 +21,7 @@ func GetCompany(c *gin.Context) {
 
 	db := dbMySql.GetDatabase()
 
-	var empresa models.Company
+	var empresa entities.Company
 	err = db.First(empresa, newid).Error
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -36,7 +36,7 @@ func GetCompany(c *gin.Context) {
 func AddCompany(c *gin.Context) {
 	db := dbMySql.GetDatabase()
 
-	var empresa models.Company
+	var empresa entities.Company
 
 	err := c.ShouldBindJSON(empresa)
 	if err != nil {
@@ -60,7 +60,7 @@ func AddCompany(c *gin.Context) {
 
 func GetCompanies(c *gin.Context) {
 	db := dbMySql.GetDatabase()
-	var empresas []models.Company
+	var empresas []entities.Company
 	err := db.Find(empresas).Error
 
 	if err != nil {

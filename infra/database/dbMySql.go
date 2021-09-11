@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/boazsoftwares/Boaz.Api.Go/database/migrations"
+	"github.com/boazsoftwares/Boaz.Api.Go/infra/database/migrations"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
