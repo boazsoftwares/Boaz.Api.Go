@@ -4,31 +4,30 @@ import (
 	"log"
 	"time"
 
-	databaseInterface "github.com/boazsoftwares/Boaz.Api.Go/infra/database/interface"
+	"github.com/boazsoftwares/Boaz.Api.Go/infra/database"
 	"github.com/boazsoftwares/Boaz.Api.Go/infra/database/migrations"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 var gormDatabase *gorm.DB
-var driverStart DBMySqlConfig
+var databaseProvider DatabaseProviderConfig
 
-type (
-	ConnectionConfig struct {
-		Host     string
-		Port     int
-		Database string
-		Password string
-	}
+type ConnectionConfig struct {
+	Host     string
+	Port     int
+	Database string
+	Password string
+}
 
-	DBMySqlConfig struct {
-		databaseInterface.DatabaseInterface
-		Config ConnectionConfig
-		databaseInterface.CrudGenericInterface
-	}
-)
+type DatabaseProviderConfig struct {
+	database.Provider
+	database.Crud
+	Config ConnectionConfig
+	Type   database.DatabaseTypeEnum
+}
 
-func (drive DBMySqlConfig) Migration() {
+func (drive DatabaseProviderConfig) Migration() {
 	migrations.RunMigration(gormDatabase)
 }
 
@@ -36,11 +35,7 @@ func GetDatabase() *gorm.DB {
 	return gormDatabase
 }
 
-func (drive DBMySqlConfig) GetDatabase() *gorm.DB {
-	return gormDatabase
-}
-
-func (drive DBMySqlConfig) OpenConnection() {
+func (driveConfig DatabaseProviderConfig) OpenConnection() {
 	dbGorm, err := gorm.Open(mysql.Open("root:root@tcp(127.0.0.1:3306)/BoazApiGo?charset=utf8mb4&parseTime=True&loc=Local"), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Error: ", err)
@@ -56,14 +51,18 @@ func (drive DBMySqlConfig) OpenConnection() {
 	config.SetConnMaxLifetime(time.Hour)
 }
 
-func (drive DBMySqlConfig) ClosedConnection() {
+func (drive DatabaseProviderConfig) ClosedConnection() {
 	config, _ := gormDatabase.DB()
 	config.Close()
 }
 
-func MysqlTest() DBMySqlConfig {
-	driverStart.OpenConnection()
-	//driverStart.Migration()
-	//driverStart.ClosedConnection()
-	return driverStart
+func (drive DatabaseProviderConfig) GetDatabase() *gorm.DB {
+	return gormDatabase
+}
+
+func MysqlTest() DatabaseProviderConfig {
+	databaseProvider.OpenConnection()
+	databaseProvider.Migration()
+	databaseProvider.ClosedConnection()
+	return databaseProvider
 }

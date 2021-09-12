@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"reflect"
 
-	databaseInterface "github.com/boazsoftwares/Boaz.Api.Go/infra/database/interface"
+	database "github.com/boazsoftwares/Boaz.Api.Go/infra/database"
 	"gorm.io/gorm"
 )
 
 type crudGeneric struct {
-	Crud databaseInterface.CrudGenericInterface
+	Crud database.Crud
 }
 
 var db *gorm.DB
