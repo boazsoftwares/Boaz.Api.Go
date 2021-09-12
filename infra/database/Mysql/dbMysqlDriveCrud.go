@@ -2,25 +2,28 @@ package dbMysqlDrive
 
 import (
 	"fmt"
+	"reflect"
 
-	entities "github.com/boazsoftwares/Boaz.Api.Go/domain/entities"
 	databaseInterface "github.com/boazsoftwares/Boaz.Api.Go/infra/database/interface"
+	"gorm.io/gorm"
 )
 
 type crudGeneric struct {
 	Crud databaseInterface.CrudGenericInterface
 }
 
-var Crud crudGeneric
+var db *gorm.DB
 
-func (crud crudGeneric) Find(newid int, err error) entities.Company {
-	db := GetDatabase()
+func Crud() crudGeneric {
+	db = GetDatabase()
+	return crudGeneric{}
+}
 
-	var companyResult = entities.Company{}
-	err = db.First(companyResult, newid).Error
+func (crud crudGeneric) Find(entity interface{}, newid int, err error) interface{} {
+	err = db.First(entity, newid).Error
 	if err != nil {
-		fmt.Println("Error: It was not possible find company: " + err.Error())
-		return companyResult
+		fmt.Println("Error: It was not possible find " + reflect.TypeOf(entity).String() + ": " + err.Error())
+		return entity
 	}
-	return companyResult
+	return entity
 }

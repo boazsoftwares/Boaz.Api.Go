@@ -4,7 +4,7 @@ type CrudGenericInterface interface {
 	getDatabase()
 	Add() bool
 	Remove() bool
-	Find(newid int) interface{}
+	Find(entity interface{}, newid int, err error) interface{}
 	FindAll() []interface{}
 	Update() bool
 	Insert() bool

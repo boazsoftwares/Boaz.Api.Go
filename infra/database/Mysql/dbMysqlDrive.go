@@ -13,18 +13,20 @@ import (
 var gormDatabase *gorm.DB
 var driverStart DBMySqlConfig
 
-type ConnectionConfig struct {
-	Host     string
-	Port     int
-	Database string
-	Password string
-}
+type (
+	ConnectionConfig struct {
+		Host     string
+		Port     int
+		Database string
+		Password string
+	}
 
-type DBMySqlConfig struct {
-	databaseInterface.DatabaseInterface
-	Config ConnectionConfig
-	databaseInterface.CrudGenericInterface
-}
+	DBMySqlConfig struct {
+		databaseInterface.DatabaseInterface
+		Config ConnectionConfig
+		databaseInterface.CrudGenericInterface
+	}
+)
 
 func (drive DBMySqlConfig) Migration() {
 	migrations.RunMigration(gormDatabase)

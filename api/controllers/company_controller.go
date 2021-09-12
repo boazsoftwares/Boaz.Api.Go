@@ -20,7 +20,7 @@ func GetCompany(c *gin.Context) {
 		return
 	}
 
-	var companyResult = dbMysqlDrive.Crud.Find(newid, err)
+	var companyResult = dbMysqlDrive.Crud().Find(entities.Company{}, newid, err)
 	fmt.Println(companyResult)
 
 	db := dbMysqlDrive.GetDatabase()
