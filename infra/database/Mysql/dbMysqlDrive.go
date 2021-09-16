@@ -61,8 +61,8 @@ func (drive DatabaseProviderConfig) GetDatabase() *gorm.DB {
 }
 
 func MysqlTest() DatabaseProviderConfig {
-	databaseProvider.OpenConnection()
-	databaseProvider.Migration()
-	databaseProvider.ClosedConnection()
+	//databaseProvider.OpenConnection()
+	//databaseProvider.Migration()
+	//databaseProvider.ClosedConnection()
 	return databaseProvider
 }
